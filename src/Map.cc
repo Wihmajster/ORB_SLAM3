@@ -27,18 +27,16 @@ namespace ORB_SLAM3
 long unsigned int Map::nNextId=0;
 
 Map::Map():mnMaxKFid(0),mnBigChangeIdx(0), mbImuInitialized(false), mnMapChange(0), mpFirstRegionKF(static_cast<KeyFrame*>(NULL)),
-mbFail(false), mIsInUse(false), mHasTumbnail(false), mbBad(false), mnMapChangeNotified(0), mbIsInertial(false), mbIMU_BA1(false), mbIMU_BA2(false)
+mbFail(false), mIsInUse(false), mbBad(false), mnMapChangeNotified(0), mbIsInertial(false), mbIMU_BA1(false), mbIMU_BA2(false)
 {
     mnId=nNextId++;
-    mThumbnail = static_cast<GLubyte*>(NULL);
 }
 
 Map::Map(int initKFid):mnInitKFid(initKFid), mnMaxKFid(initKFid),/*mnLastLoopKFid(initKFid),*/ mnBigChangeIdx(0), mIsInUse(false),
-                       mHasTumbnail(false), mbBad(false), mbImuInitialized(false), mpFirstRegionKF(static_cast<KeyFrame*>(NULL)),
+                       mbBad(false), mbImuInitialized(false), mpFirstRegionKF(static_cast<KeyFrame*>(NULL)),
                        mnMapChange(0), mbFail(false), mnMapChangeNotified(0), mbIsInertial(false), mbIMU_BA1(false), mbIMU_BA2(false)
 {
     mnId=nNextId++;
-    mThumbnail = static_cast<GLubyte*>(NULL);
 }
 
 Map::~Map()
@@ -48,10 +46,6 @@ Map::~Map()
 
     //TODO: erase all keyframes from memory
     mspKeyFrames.clear();
-
-    if(mThumbnail)
-        delete mThumbnail;
-    mThumbnail = static_cast<GLubyte*>(NULL);
 
     mvpReferenceMapPoints.clear();
     mvpKeyFrameOrigins.clear();

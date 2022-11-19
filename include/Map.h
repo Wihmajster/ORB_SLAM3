@@ -24,7 +24,6 @@
 #include "KeyFrame.h"
 
 #include <set>
-#include <pangolin/pangolin.h>
 #include <mutex>
 
 #include <boost/serialization/base_object.hpp>
@@ -187,11 +186,7 @@ protected:
     int mnBigChangeIdx;
 
 
-    // View of the map in aerial sight (for the AtlasViewer)
-    GLubyte* mThumbnail;
-
     bool mIsInUse;
-    bool mHasTumbnail;
     bool mbBad = false;
 
     bool mbIsInertial;
