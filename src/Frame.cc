@@ -16,19 +16,19 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Frame.h"
+#include "orb_slam3/Frame.h"
 
-#include "G2oTypes.h"
-#include "MapPoint.h"
-#include "KeyFrame.h"
-#include "ORBextractor.h"
-#include "Converter.h"
-#include "ORBmatcher.h"
-#include "GeometricCamera.h"
+#include "orb_slam3/G2oTypes.h"
+#include "orb_slam3/MapPoint.h"
+#include "orb_slam3/KeyFrame.h"
+#include "orb_slam3/ORBextractor.h"
+#include "orb_slam3/Converter.h"
+#include "orb_slam3/ORBmatcher.h"
+#include "orb_slam3/CameraModels/GeometricCamera.h"
 
 #include <thread>
-#include <include/CameraModels/Pinhole.h>
-#include <include/CameraModels/KannalaBrandt8.h>
+#include "orb_slam3/CameraModels/Pinhole.h"
+#include "orb_slam3/CameraModels/KannalaBrandt8.h"
 
 namespace ORB_SLAM3
 {

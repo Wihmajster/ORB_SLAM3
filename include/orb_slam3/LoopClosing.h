@@ -20,18 +20,18 @@
 #ifndef LOOPCLOSING_H
 #define LOOPCLOSING_H
 
-#include "KeyFrame.h"
-#include "LocalMapping.h"
-#include "Atlas.h"
-#include "ORBVocabulary.h"
-#include "Tracking.h"
+#include "orb_slam3/KeyFrame.h"
+#include "orb_slam3/LocalMapping.h"
+#include "orb_slam3/Atlas.h"
+#include "orb_slam3/ORBVocabulary.h"
+#include "orb_slam3/Tracking.h"
 
-#include "KeyFrameDatabase.h"
+#include "orb_slam3/KeyFrameDatabase.h"
 
 #include <boost/algorithm/string.hpp>
 #include <thread>
 #include <mutex>
-#include "Thirdparty/g2o/g2o/types/types_seven_dof_expmap.h"
+#include "g2o/types/types_seven_dof_expmap.h"
 
 namespace ORB_SLAM3
 {

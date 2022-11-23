@@ -16,9 +16,9 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "KeyFrame.h"
-#include "Converter.h"
-#include "ImuTypes.h"
+#include "orb_slam3/KeyFrame.h"
+#include "orb_slam3/Converter.h"
+#include "orb_slam3/ImuTypes.h"
 #include<mutex>
 
 namespace ORB_SLAM3

@@ -19,12 +19,12 @@
 #ifndef ATLAS_H
 #define ATLAS_H
 
-#include "Map.h"
-#include "MapPoint.h"
-#include "KeyFrame.h"
-#include "GeometricCamera.h"
-#include "Pinhole.h"
-#include "KannalaBrandt8.h"
+#include "orb_slam3/Map.h"
+#include "orb_slam3/MapPoint.h"
+#include "orb_slam3/KeyFrame.h"
+#include "orb_slam3/CameraModels/GeometricCamera.h"
+#include "orb_slam3/CameraModels/Pinhole.h"
+#include "orb_slam3/CameraModels/KannalaBrandt8.h"
 
 #include <set>
 #include <mutex>

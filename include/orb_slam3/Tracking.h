@@ -23,18 +23,18 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
 
-#include "Atlas.h"
-#include "LocalMapping.h"
-#include "LoopClosing.h"
-#include "Frame.h"
-#include "ORBVocabulary.h"
-#include "KeyFrameDatabase.h"
-#include "ORBextractor.h"
-#include "System.h"
-#include "ImuTypes.h"
-#include "Settings.h"
+#include "orb_slam3/Atlas.h"
+#include "orb_slam3/LocalMapping.h"
+#include "orb_slam3/LoopClosing.h"
+#include "orb_slam3/Frame.h"
+#include "orb_slam3/ORBVocabulary.h"
+#include "orb_slam3/KeyFrameDatabase.h"
+#include "orb_slam3/ORBextractor.h"
+#include "orb_slam3/System.h"
+#include "orb_slam3/ImuTypes.h"
+#include "orb_slam3/Settings.h"
 
-#include "GeometricCamera.h"
+#include "orb_slam3/CameraModels/GeometricCamera.h"
 
 #include <mutex>
 #include <unordered_set>

@@ -16,9 +16,9 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "G2oTypes.h"
-#include "ImuTypes.h"
-#include "Converter.h"
+#include "orb_slam3/G2oTypes.h"
+#include "orb_slam3/ImuTypes.h"
+#include "orb_slam3/Converter.h"
 namespace ORB_SLAM3
 {
 

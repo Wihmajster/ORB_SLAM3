@@ -17,10 +17,10 @@
 */
 
 
-#include "KeyFrameDatabase.h"
+#include "orb_slam3/KeyFrameDatabase.h"
 
-#include "KeyFrame.h"
-#include "Thirdparty/DBoW2/DBoW2/BowVector.h"
+#include "orb_slam3/KeyFrame.h"
+#include "DBoW2/BowVector.h"
 
 #include<mutex>
 

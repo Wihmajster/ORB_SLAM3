@@ -1,59 +1,32 @@
-cmake_minimum_required(VERSION 2.8)
-project(ORB_SLAM3)
+cmake_minimum_required(VERSION 3.16)
+project(orb_slam3_core)
 
-IF(NOT CMAKE_BUILD_TYPE)
-        SET(CMAKE_BUILD_TYPE Release)
-ENDIF()
-
-MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall   -O3")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
-
-# Check C++14 or C++11 support
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-
-if(COMPILER_SUPPORTS_CXX14)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-        add_definitions(-DCOMPILEDWITHC14)
-        message(STATUS "Using flag -std=c++14.")
-elseif(COMPILER_SUPPORTS_CXX11)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-        add_definitions(-DCOMPILEDWITHC11)
-        message(STATUS "Using flag -std=c++11.")
-else()
-        message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++14 support. Please use a different C++ compiler.")
+# Release by default
+# Turn on Debug with "-DCMAKE_BUILD_TYPE=Debug"
+if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE Release)
 endif()
 
-LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
-
-find_package(OpenCV 4)
-
-if(NOT OpenCV_FOUND)
-        message(FATAL_ERROR "OpenCV > 4.4 not found.")
-endif()
-
-MESSAGE("OPENCV VERSION:")
-MESSAGE(${OpenCV_VERSION})
-
+find_package(catkin REQUIRED)
+find_package(OpenCV 4.2 REQUIRED)
 find_package(Eigen3 3.1.0 REQUIRED)
-find_package(realsense2)
 
-include_directories(
-        ${PROJECT_SOURCE_DIR}
-        ${PROJECT_SOURCE_DIR}/include
-        ${PROJECT_SOURCE_DIR}/include/CameraModels
-        ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus
-        ${EIGEN3_INCLUDE_DIR}
-)
+add_definitions(-w)
+catkin_package(
+        INCLUDE_DIRS
+        include
+        Thirdparty/DBoW2
+        Thirdparty/g2o
+        Thirdparty/Sophus
+        LIBRARIES orb_slam3 DBoW2 g2o
+        CATKIN_DEPENDS roscpp
+        DEPENDS EIGEN3 OpenCV)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+add_subdirectory(Thirdparty/DBoW2)
+add_subdirectory(Thirdparty/g2o)
+add_subdirectory(Thirdparty/Sophus)
 
-add_library(${PROJECT_NAME} SHARED
+add_library(orb_slam3
         src/System.cc
         src/Tracking.cc
         src/LocalMapping.cc
@@ -78,52 +51,42 @@ add_library(${PROJECT_NAME} SHARED
         src/GeometricTools.cc
         src/TwoViewReconstruction.cc
         src/Config.cc
-        src/Settings.cc
-        include/System.h
-        include/Tracking.h
-        include/LocalMapping.h
-        include/LoopClosing.h
-        include/ORBextractor.h
-        include/ORBmatcher.h
-        include/Converter.h
-        include/MapPoint.h
-        include/KeyFrame.h
-        include/Atlas.h
-        include/Map.h
-        include/Optimizer.h
-        include/Frame.h
-        include/KeyFrameDatabase.h
-        include/Sim3Solver.h
-        include/ImuTypes.h
-        include/G2oTypes.h
-        include/CameraModels/GeometricCamera.h
-        include/CameraModels/Pinhole.h
-        include/CameraModels/KannalaBrandt8.h
-        include/OptimizableTypes.h
-        include/MLPnPsolver.h
-        include/GeometricTools.h
-        include/TwoViewReconstruction.h
-        include/SerializationUtils.h
-        include/Config.h
-        include/Settings.h)
+        src/Settings.cc)
 
-add_subdirectory(Thirdparty/g2o)
+target_include_directories(orb_slam3 PUBLIC
+        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2
+        ${PROJECT_SOURCE_DIR}/Thirdparty/g2o
+        ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus
+        ${EIGEN3_INCLUDE_DIR}
+        ${catkin_INCLUDE_DIRS}
+)
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(orb_slam3 PUBLIC
         ${OpenCV_LIBS}
         ${EIGEN3_LIBS}
-        ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
-        ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
+        DBoW2
+        g2o
         -lboost_serialization
         -lcrypto
 )
 
-# If RealSense SDK is found the library is added
-if(realsense2_FOUND)
-        include_directories(${PROJECT_NAME}
-                ${realsense_INCLUDE_DIR}
-        )
-        target_link_libraries(${PROJECT_NAME}
-                ${realsense2_LIBRARY}
-        )
+set_target_properties(orb_slam3 PROPERTIES
+        CXX_STANDARD 14)
+
+target_compile_options(orb_slam3 PRIVATE -Wall -O3)
+
+if(CMAKE_BUILD_TYPE EQUAL "Release")
+        target_compile_options(orb_slam3 PRIVATE -march=native)
 endif()
+
+add_custom_target(vocabulary ALL)
+add_custom_command(TARGET vocabulary PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/ORBvoc.txt.tar.gz
+        COMMAND ${CMAKE_COMMAND} -E tar xf ${CMAKE_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        DEPENDS ${CMAKE_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
+        COMMENT "Unpacking ORBvoc.txt.tar.gz"
+        VERBATIM
+)
+add_dependencies(orb_slam3 vocabulary)

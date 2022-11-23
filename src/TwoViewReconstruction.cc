@@ -16,12 +16,12 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "TwoViewReconstruction.h"
+#include "orb_slam3/TwoViewReconstruction.h"
 
-#include "Converter.h"
-#include "GeometricTools.h"
+#include "orb_slam3/Converter.h"
+#include "orb_slam3/GeometricTools.h"
 
-#include "Thirdparty/DBoW2/DUtils/Random.h"
+#include "DUtils/Random.h"
 
 #include<thread>
 

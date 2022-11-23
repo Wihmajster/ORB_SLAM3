@@ -17,16 +17,16 @@
 */
 
 
-#include "Tracking.h"
+#include "orb_slam3/Tracking.h"
 
-#include "ORBmatcher.h"
-#include "Converter.h"
-#include "G2oTypes.h"
-#include "Optimizer.h"
-#include "Pinhole.h"
-#include "KannalaBrandt8.h"
-#include "MLPnPsolver.h"
-#include "GeometricTools.h"
+#include "orb_slam3/ORBmatcher.h"
+#include "orb_slam3/Converter.h"
+#include "orb_slam3/G2oTypes.h"
+#include "orb_slam3/Optimizer.h"
+#include "orb_slam3/CameraModels/Pinhole.h"
+#include "orb_slam3/CameraModels/KannalaBrandt8.h"
+#include "orb_slam3/MLPnPsolver.h"
+#include "orb_slam3/GeometricTools.h"
 
 #include <iostream>
 

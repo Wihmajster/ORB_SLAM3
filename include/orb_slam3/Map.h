@@ -20,8 +20,8 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "MapPoint.h"
-#include "KeyFrame.h"
+#include "orb_slam3/MapPoint.h"
+#include "orb_slam3/KeyFrame.h"
 
 #include <set>
 #include <mutex>

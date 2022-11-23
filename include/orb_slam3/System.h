@@ -28,14 +28,14 @@
 #include<thread>
 #include<opencv2/core/core.hpp>
 
-#include "Tracking.h"
-#include "Atlas.h"
-#include "LocalMapping.h"
-#include "LoopClosing.h"
-#include "KeyFrameDatabase.h"
-#include "ORBVocabulary.h"
-#include "ImuTypes.h"
-#include "Settings.h"
+#include "orb_slam3/Tracking.h"
+#include "orb_slam3/Atlas.h"
+#include "orb_slam3/LocalMapping.h"
+#include "orb_slam3/LoopClosing.h"
+#include "orb_slam3/KeyFrameDatabase.h"
+#include "orb_slam3/ORBVocabulary.h"
+#include "orb_slam3/ImuTypes.h"
+#include "orb_slam3/Settings.h"
 
 
 namespace ORB_SLAM3

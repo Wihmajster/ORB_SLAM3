@@ -17,16 +17,16 @@
 */
 
 
-#include "LoopClosing.h"
+#include "orb_slam3/LoopClosing.h"
 
-#include "Sim3Solver.h"
-#include "Converter.h"
-#include "Optimizer.h"
-#include "ORBmatcher.h"
-#include "G2oTypes.h"
+#include "orb_slam3/Sim3Solver.h"
+#include "orb_slam3/Converter.h"
+#include "orb_slam3/Optimizer.h"
+#include "orb_slam3/ORBmatcher.h"
+#include "orb_slam3/G2oTypes.h"
 
-#include<mutex>
-#include<thread>
+#include <mutex>
+#include <thread>
 
 
 namespace ORB_SLAM3

@@ -16,7 +16,7 @@
 * If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Pinhole.h"
+#include "orb_slam3/CameraModels/Pinhole.h"
 
 #include <boost/serialization/export.hpp>
 
