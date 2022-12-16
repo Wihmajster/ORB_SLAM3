@@ -83,9 +83,9 @@ endif()
 add_custom_target(vocabulary ALL)
 add_custom_command(TARGET vocabulary PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/ORBvoc.txt.tar.gz
-        COMMAND ${CMAKE_COMMAND} -E tar xf ${CMAKE_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
+        COMMAND ${CMAKE_COMMAND} -E tar xf ${PROJECT_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        DEPENDS ${CMAKE_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
+        DEPENDS ${PROJECT_SOURCE_DIR}/Vocabulary/ORBvoc.txt.tar.gz
         COMMENT "Unpacking ORBvoc.txt.tar.gz"
         VERBATIM
 )
